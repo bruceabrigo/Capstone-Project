@@ -17,7 +17,8 @@ Django, Python, HTML, CSS, JS
 ![Landing Page](Imgs/LandingPage.png)
 ![Collections Page](Imgs/Collections.png)
 ![Contact Page](Imgs/ContactPage.png)
-![Client Collection Show Page - Prom](Imgs/ClientPromPage.png)
+![Client Collection Prom Show Page - Prom](Imgs/ClientPromPage.png)
+![Client Collection Cars Show Page - Prom](Imgs/ClientCarsPage.png)
 
 
 # ERD

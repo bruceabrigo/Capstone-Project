@@ -15,3 +15,5 @@ Django, Python, HTML, CSS, JS
 
 # Wireframes
 ![Landing Page](Imgs/LandingPage.png)
+![Collections Page](Imgs/Collections.png)
+![Contact Page](Imgs/ContactPage.png)

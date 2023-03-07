@@ -17,7 +17,11 @@ Django, Python, HTML, CSS, JS
 ![Landing Page](Imgs/LandingPage.png)
 ![Collections Page](Imgs/Collections.png)
 ![Contact Page](Imgs/ContactPage.png)
+![Client Collection Show Page - Prom](Imgs/ClientPromPage.png)
 
+
+# ERD
+![ERD](Imgs/ERD.png)
 # Route Tables
 
 Main       

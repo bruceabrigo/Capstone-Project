@@ -17,3 +17,22 @@ Django, Python, HTML, CSS, JS
 ![Landing Page](Imgs/LandingPage.png)
 ![Collections Page](Imgs/Collections.png)
 ![Contact Page](Imgs/ContactPage.png)
+
+# Route Tables
+
+Main       
+| **URL**          | **HTTP Verb**|**Action**|
+|------------------|--------------|----------|
+| /                | GET          | home  
+| /collections     | GET          | index   
+| /my_collections  | GET          | show  
+| /contact         | POST         | post  
+| /edit            | PUT & POST   | destroy
+
+Users       
+| **URL**                        | **HTTP Verb**|**Action**|
+|--------------------------------|--------------|----------|
+| /users/accounts/signup         | POST         | create   
+| /users/accounts/login          | GET          | login  
+| /users/accounts/login          | POST         | create  
+| /users/accounts/logout         | DELETE       | destroy

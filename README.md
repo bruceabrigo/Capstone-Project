@@ -14,4 +14,4 @@ Django, Python, HTML, CSS, JS
 - User should be able to CREATE and submit a contact form
 
 # Wireframes
-![Landing Page] (Imgs/LandingPage.png)
+![Landing Page](Imgs/LandingPage.png)

@@ -1,0 +1,43 @@
+body {
+    display: flex;
+    min-height: 100vh;
+    flex-direction: column;
+}
+  main {
+    flex: 1 0 auto;
+}
+.container {
+    margin: 0;
+    max-width: 100%;
+    width: 100%;
+}
+.brand-logo {
+    font-family: 'Montserrat', sans-serif;
+}
+.right {
+    font-family: 'Noto Sans', sans-serif;
+}
+.nav-wrapper {
+    background-color: black;
+}
+.landing-image {
+    display: block;
+    margin: auto;
+    width: 100%;
+}
+.landing-section {
+    height: 100vh;
+    overflow: hidden;
+}
+h1 {
+    margin: 25px;
+}
+.card {
+    margin: 50px;
+    border-radius: 25px;
+}
+footer.page-footer {
+    padding-top: 0;
+    text-align: center;
+    background-color: black;
+  }

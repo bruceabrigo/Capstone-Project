@@ -54,3 +54,7 @@ footer.page-footer {
     margin: 0 15px;
     font-size: 18px;
 }
+.delete-message {
+    border: 1px solid black;
+    padding: 50px;
+}

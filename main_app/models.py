@@ -1,4 +1,5 @@
 from django.db import models
+from django.urls import reverse
 
 # Create your models here.
 class Review(models.Model):
@@ -10,3 +11,6 @@ class Review(models.Model):
     # potentially re-order by its rating
     class Meta:
         ordering = ['created_on']
+    
+    def get_absolute_url(self):
+        return reverse('edit_review', kwargs={'review_id': self.id})

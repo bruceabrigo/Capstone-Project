@@ -40,4 +40,9 @@ footer.page-footer {
     padding-top: 0;
     text-align: center;
     background-color: black;
-  }
+}
+.title-wrapper {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}

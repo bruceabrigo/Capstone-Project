@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from django.views.generic.edit import CreateView
+from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from .models import Review
 # views.py
 
@@ -25,4 +25,13 @@ class PostReview(CreateView):
     model = Review
     fields = '__all__'
 
+    success_url = '/reviews'
+
+class UpdateReview(UpdateView):
+    # I only want users to be able change the note
+    model = Review
+    fields = ['note']
+
+class DeleteReview(DeleteView):
+    model = Review
     success_url = '/reviews'

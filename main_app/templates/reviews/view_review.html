@@ -7,10 +7,13 @@
     <div class="card-content">
       <div class="title-wrapper">
         <span class="card-title">{{ review.name }}</span>
+        <div class="edit-options">
+            <a href="{% url 'update_review' review.id %}">Edit</a>
+            <a href="{% url 'delete_review' review.id %}">Delete</a>
+        </div>
       </div>
       <p>Note: {{ review.note }}</p>
       <hr>
-
     </div>
   </div>
 

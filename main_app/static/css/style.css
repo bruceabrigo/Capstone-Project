@@ -46,3 +46,11 @@ footer.page-footer {
     justify-content: space-between;
     align-items: center;
 }
+.edit-options {
+    display: flex;
+    justify-content: flex-start;
+}
+.edit-options a {
+    margin: 0 15px;
+    font-size: 18px;
+}

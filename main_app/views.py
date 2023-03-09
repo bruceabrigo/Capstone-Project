@@ -1,6 +1,10 @@
 from django.shortcuts import render
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from .models import Review
+import os
+
+def photos(request):
+    secret_key = os.environ['SECRET_KEY']
 # views.py
 
 # Add this cats list below the imports
@@ -38,3 +42,15 @@ class UpdateReview(UpdateView):
 class DeleteReview(DeleteView):
     model = Review
     success_url = '/reviews'
+
+def portraits_collection(request):
+    return render(request, 'collections/portaits.html')
+
+def prom_collection(request):
+    return render(request, 'collections/prom.html')
+
+
+# class Photo(models.Model):
+#     url = models.Charfield(max_length=200)
+
+

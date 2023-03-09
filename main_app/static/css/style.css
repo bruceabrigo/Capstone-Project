@@ -58,3 +58,20 @@ footer.page-footer {
     border: 1px solid black;
     padding: 50px;
 }
+/* -------------- View Collections -------------- */
+.collections-section {
+    display: flex;
+    justify-content: space-around;
+    padding: 30px;
+    width: 100%;
+}
+
+.collections-card {
+    height: 1000px;
+    cursor: pointer;
+    
+}
+
+.collections-card:hover {
+    opacity: 90%;
+}

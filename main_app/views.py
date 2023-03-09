@@ -9,6 +9,9 @@ from .models import Review
 def home(request): # home page view
     return render(request, 'home.html')
 
+def collections(request):
+    return render(request, 'collections.html')
+
 def show_reviews(request): # show an index of all the reviews
     reviews = Review.objects.all() # reviews will make a query for all reviews to be rendered to the index
     return render(request, 'reviews/index.html', {

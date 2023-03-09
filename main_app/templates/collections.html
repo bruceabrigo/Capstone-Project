@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+{% block content %}
+
+    <div class="collections-section">
+        <div onclick="location.href='{% url 'create_review' %}'">
+            <img src="https://cdn.myportfolio.com/236bd5a5-dac3-43d9-aa46-b21cfd636638/7c62ae7c-13f3-4f4a-a6fc-87c13c2fd6a0_rw_1200.jpg?h=ed37cbdee9d6797d0ccb1521ec17b19e" alt="portraits-redirect-card" class="collections-card">
+        </div>
+        <div onclick="location.href='{% url 'create_review' %}'">
+            <img src="https://cdn.myportfolio.com/236bd5a5-dac3-43d9-aa46-b21cfd636638/af68ce09-52a4-4ee2-b626-f2e36ec76189_rw_1920.jpg?h=e51cb265dca37c2799e59b693514caa6" alt="portraits-img-attribute" class="collections-card">
+        </div>
+    </div>
+
+{% endblock %}

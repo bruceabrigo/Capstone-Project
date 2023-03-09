@@ -1,13 +1,19 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
-from .models import Review
+from .models import Review, AllCollections, UploadPhoto
 import os
+import uuid
+import boto3
+from django.conf import settings
+
+AWS_ACCESS_KEY = settings.AWS_ACCESS_KEY
+AWS_SECRET_ACCESS_KEY = settings.AWS_SECRET_ACCESS_KEY
+S3_BUCKET = settings.S3_BUCKET
+S3_BASE_URL = settings.S3_BASE_URL
 
 def photos(request):
     secret_key = os.environ['SECRET_KEY']
 # views.py
-
-# Add this cats list below the imports
 
 # Create your views here.
 def home(request): # home page view
@@ -43,14 +49,42 @@ class DeleteReview(DeleteView):
     model = Review
     success_url = '/reviews'
 
+# create individual portrait reviews
+# each collection is to render all photos in that collections one-to-many relationship
 def portraits_collection(request):
-    return render(request, 'collections/portaits.html')
+    collections = AllCollections.objects.all()
+    return render(request, 'collections/portaits.html', {'collections': collections})
 
 def prom_collection(request):
     return render(request, 'collections/prom.html')
 
+# create a custom function to upload an image to AWS
+def upload_photo(request, collection_id):
+    photo_file = request.FILES.get('photo-file', None)
 
-# class Photo(models.Model):
-#     url = models.Charfield(max_length=200)
+    if photo_file:
+        # if present, we'll use this to create  a ref to the boto3
+        s3 = boto3.client('s3', aws_access_key_id=AWS_ACCESS_KEY, aws_secret_access_key=AWS_SECRET_ACCESS_KEY)
+        # CREATE A UNIQUE KEY FOR OUR PHOTOS
+        key = uuid.uuid4().hex[:6] + photo_file.name[photo_file.name.rfind('.'):]
+        # we're going to use try... except which is like try...catch in js
+        # to handle the situation if anything should go wrong
+        try:
+            # if success
+            s3.upload_fileobj(photo_file, S3_BUCKET, key)
+            # build the full url setting to upload s3
+            url = f'{S3_BASE_URL}{S3_BUCKET}/{key}'
+            # if our upload(that used boto3) was succesful
+            # we want to use that photo locations to create a Photo model
+            photo = UploadPhoto(url=url, collection_id=collection_id)
+            # save the instance to the database
+            photo.save()
+        # except is our catch
+        except Exception as error:
+            # pring an error message
+            print('Error uploading image', error)
+            return redirect('collections')
+    return redirect('collections')
+
 
 

@@ -16,8 +16,20 @@ class Review(models.Model):
         return reverse('edit_review', kwargs={'review_id': self.id})
     
 class AllCollections(models.Model):
+    collection = models.CharField(max_length=100)
+    # give an image an url to be associated to
     # add a date to the collections
-    created_on = models.DateField('created on')
+    # created_on = models.DateField('created on')
+    def __str__(self):
+        return self.collection
+    # order by date
+    # class Meta:
+    #     ordering = ['-created_on']
+    
+class UploadPhoto(models.Model):
+    url = models.CharField(max_length=200)
+    # provide the photo an FK, to be associated with its collection
+    collection = models.ForeignKey(AllCollections, on_delete=models.CASCADE)
 
-    class Meta:
-        ordering = ['-created_on']
+    def __str__(self):
+        return f'Saved to the {self.collection_id} @{self.url}'

@@ -11,5 +11,6 @@ urlpatterns = [
     path('reviews/<int:pk>/delete/', views.DeleteReview.as_view(), name='delete_review'),
     path('collections/portraits/', views.portraits_collection, name='portraits'),
     path('collections/prom/', views.prom_collection, name='prom'),
+    path('collections/<int:collection_id>/upload', views.upload_photo, name='upload_photo'),
 #   path('contact', views.contact, name='contact'),
 ]

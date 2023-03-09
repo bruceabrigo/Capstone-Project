@@ -2,5 +2,27 @@
 {% block content %}
 
     <h1>Portraits</h1>
+    <!-- Insert photo markup below this comment -->
+    {% for collection in collections %}
+    <div class="card">
+      <div class="card-content">
+        <div class="title-wrapper">
+          <span class="card-title">{{ collection.collection }}</span>
+            {% for photo in collection.uploadphoto_set.all %}
+            <img src="{{ photo.url }}" alt="{{ photo.collection }}" height="250px">
+            {% empty %}
+            <div class="card-panel teal-text center-align">No Photos Uploaded</div>
+            {% endfor %}
+        
+            <form action="{% url 'upload_photo' collection.id %}" enctype="multipart/form-data" method="POST" class="card-panel">
+                {% csrf_token %}
+                <input type="file" name="photo-file">
+                <br><br>
+                <button type="submit" class="btn">Upload Photo</button>
+            </form>
+        </div>
+      </div>
+    </div>
+  {% endfor %}
 
 {% endblock %}

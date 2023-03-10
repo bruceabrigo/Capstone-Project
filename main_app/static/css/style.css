@@ -18,7 +18,7 @@ body {
     font-family: 'Noto Sans', sans-serif;
 }
 .nav-wrapper {
-    background-color: black;
+  background-color: black;
 }
 .landing-image {
     display: block;
@@ -78,4 +78,31 @@ footer.page-footer {
 }
 .parallax-container {
     height: 100vh;
+    text-align: center;
+}
+.section-headings {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: white;
+  }
+.section-headings a {
+    font-size: 25px;
+  }
+/* --------------------------------- Contact Form --------------------------------- */
+.contact {
+    margin-top: 100px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.contact-card {
+    display: flex;
+    background-color: white;
+    border-radius: 15px;
+    height: 600px;
+    width: 1000px;
+    overflow: hidden;
+    max-width: 1000px;
 }

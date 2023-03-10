@@ -13,5 +13,6 @@ urlpatterns = [
     path('collections/<int:collection_id>/portraits/', views.portraits_collection, name='portraits'),
     path('collections/<int:collection_id>/prom', views.prom_collection, name='prom'),
     path('collections/<int:collection_id>/upload', views.upload_photo, name='upload_photo'),
-#   path('contact', views.contact, name='contact'),
+    # contact form
+    path('contact', views.contact, name='contact'),
 ]

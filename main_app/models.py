@@ -1,5 +1,6 @@
 from django.db import models
 from django.urls import reverse
+from django import forms
 
 # Create your models here.
 class Review(models.Model):
@@ -14,6 +15,12 @@ class Review(models.Model):
     
     def get_absolute_url(self):
         return reverse('edit_review', kwargs={'review_id': self.id})
+    
+class ContactForm(forms.Form):
+    first_name = forms.CharField(max_length=300)
+    last_name = forms.CharField(max_length=300)
+    email = forms.EmailField()
+    message = forms.CharField(widget = forms.Textarea, max_length=1000)
     
 class AllCollections(models.Model):
     collection = models.CharField(max_length=100)

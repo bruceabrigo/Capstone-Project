@@ -8,7 +8,7 @@
         {% if photo %}
         <!-- as long as the photo exists, output an image -->
         <div class="row">
-            <div onclick="location.href='{% url 'portraits' collection.id %}'" class="col s6">
+            <div onclick="location.href='{% url 'portraits' collection.id %}'" class="col s6 m6">
                 <img src="{{ photo.url }}" alt="{{ photo.collection }}" width='600px'>
             </div>
         </div>

@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+{% block content %}
+
+    <h1>contact</h1>
+
+    <div class="card" style="padding: 20px;">
+        <form action="" method="POST">
+            {% csrf_token %}
+    
+            {{form.as_p}}
+            <button>submit</button>
+        </form>
+    </div>
+
+{% endblock %}

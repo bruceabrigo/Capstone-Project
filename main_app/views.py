@@ -1,10 +1,13 @@
 from django.shortcuts import render, redirect
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
-from .models import Review, AllCollections, UploadPhoto
+from .models import Review, AllCollections, UploadPhoto, ContactForm
 import os
 import uuid
 import boto3
 from django.conf import settings
+# for contact
+from django.core.mail import send_mail, BadHeaderError
+from django.http import HttpResponse
 
 AWS_ACCESS_KEY = settings.AWS_ACCESS_KEY
 AWS_SECRET_ACCESS_KEY = settings.AWS_SECRET_ACCESS_KEY
@@ -18,6 +21,28 @@ def photos(request):
 # Create your views here.
 def home(request): # home page view
     return render(request, 'home.html')
+
+def contact(request):
+    if request.method == 'POST':
+        form = ContactForm(request.POST)
+        if form.is_valid():
+            subject = "Website Inquiry" 
+            body = {
+            'first_name': form.cleaned_data['first_name'], 
+            'last_name': form.cleaned_data['last_name'], 
+            'email': form.cleaned_data['email_address'], 
+            'message':form.cleaned_data['message'], 
+            }
+            message = "\n".join(body.values())
+
+            try:
+                send_mail(subject, message, 'admin@example.com', ['admin@example.com']) 
+            except BadHeaderError:
+                return HttpResponse('Invalid header found.')
+            return redirect ('home')
+      
+    form = ContactForm()
+    return render(request, 'contact.html', {'form': form})
 
 # ----------------- Debugging -----------------
 def collections(request):

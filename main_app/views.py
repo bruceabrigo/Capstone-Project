@@ -20,7 +20,8 @@ def home(request): # home page view
     return render(request, 'home.html')
 
 def collections(request):
-    return render(request, 'collections.html')
+    collections = AllCollections.objects.all()
+    return render(request, 'collections.html', {'collections': collections})
 
 def show_reviews(request): # show an index of all the reviews
     reviews = Review.objects.all() # reviews will make a query for all reviews to be rendered to the index
@@ -51,12 +52,13 @@ class DeleteReview(DeleteView):
 
 # create individual portrait reviews
 # each collection is to render all photos in that collections one-to-many relationship
-def portraits_collection(request):
-    collections = AllCollections.objects.all()
-    return render(request, 'collections/portaits.html', {'collections': collections})
+def portraits_collection(request, collection_id):
+    collection = AllCollections.objects.get(id=collection_id)
+    return render(request, 'collections/portaits.html', {'collection': collection})
 
-def prom_collection(request):
-    return render(request, 'collections/prom.html')
+def prom_collection(request, collection_id):
+    collection = AllCollections.objects.get(id=collection_id)
+    return render(request, 'collections/portaits.html', {'collection': collection})
 
 # create a custom function to upload an image to AWS
 def upload_photo(request, collection_id):

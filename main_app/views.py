@@ -19,9 +19,13 @@ def photos(request):
 def home(request): # home page view
     return render(request, 'home.html')
 
+# ----------------- Debugging -----------------
 def collections(request):
     collections = AllCollections.objects.all()
-    return render(request, 'collections.html', {'collections': collections})
+    covers = AllCollections.objects.all()[1:2]
+    return render(request, 'collections.html', {'collections': collections, 'covers': covers})
+# ----------------- Debugging -----------------
+
 
 def show_reviews(request): # show an index of all the reviews
     reviews = Review.objects.all() # reviews will make a query for all reviews to be rendered to the index

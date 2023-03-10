@@ -1,18 +1,22 @@
 {% extends 'base.html' %}
 {% block content %}
 
-    {% for collection in collections%}
-    <h1>{{collection.collection}}</h1>
-    <div class="collections-section">
-        <div onclick="location.href='{% url 'portraits' collection.id %}'">
-            <img src="https://cdn.myportfolio.com/236bd5a5-dac3-43d9-aa46-b21cfd636638/7c62ae7c-13f3-4f4a-a6fc-87c13c2fd6a0_rw_1200.jpg?h=ed37cbdee9d6797d0ccb1521ec17b19e" alt="portraits-redirect-card" class="collections-card">
+<!-- loop through all the collections -->
+{% for collection in collections %}
+    <!-- from each collection, grab the first photo and make that the cover image -->
+    {% with photo=collection.uploadphoto_set.first %}
+        {% if photo %}
+        <!-- as long as the photo exists, output an image -->
+        <div class="row">
+            <div onclick="location.href='{% url 'portraits' collection.id %}'" class="col s6">
+                <img src="{{ photo.url }}" alt="{{ photo.collection }}" width='600px'>
+            </div>
         </div>
-        <div onclick="location.href='{% url 'prom' collection.id %}'">
-            <img src="https://cdn.myportfolio.com/236bd5a5-dac3-43d9-aa46-b21cfd636638/af68ce09-52a4-4ee2-b626-f2e36ec76189_rw_1920.jpg?h=e51cb265dca37c2799e59b693514caa6" alt="portraits-img-attribute" class="collections-card">
-        </div>
-    </div>
-
-    {% endfor %}
-    <h1>{{collection.collection}}</h1>
+        {% else %}
+        <!-- if there no, photos. Tell user there are no photos -->
+        <div class="card-panel teal-text center-align">No Photos Uploaded</div>
+        {% endif %}
+    {% endwith %}
+{% endfor %}
 
 {% endblock %}

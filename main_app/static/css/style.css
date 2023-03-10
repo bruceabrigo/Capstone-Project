@@ -76,3 +76,6 @@ footer.page-footer {
 .collection-images{
     margin: auto;
 }
+.parallax-container {
+    height: 100vh;
+}

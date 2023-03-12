@@ -59,23 +59,14 @@ footer.page-footer {
     padding: 50px;
 }
 /* -------------- View Collections -------------- */
-.collections-section {
+.gallery {
     display: flex;
-    justify-content: space-around;
-    padding: 30px;
-    width: 100%;
+    max-width: 90%;
 }
-.collections-card {
-    height: 1000px;
-    cursor: pointer;
-    
+.gallery-imgs {
+    margin: 5px;
 }
-.collections-card:hover {
-    opacity: 90%;
-}
-.collection-images{
-    margin: auto;
-}
+/* -------------- Home -------------- */
 .parallax-container {
     height: 100vh;
     text-align: center;

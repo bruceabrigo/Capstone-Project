@@ -2,21 +2,23 @@
 {% block content %}
 
 <!-- loop through all the collections -->
-{% for collection in collections %}
-    <!-- from each collection, grab the first photo and make that the cover image -->
-    {% with photo=collection.uploadphoto_set.first %}
-        {% if photo %}
-        <!-- as long as the photo exists, output an image -->
-        <div class="row">
-            <div onclick="location.href='{% url 'portraits' collection.id %}'" class="col s6 m6">
+<div class="gallery">
+    {% for collection in collections %}
+        <!-- from each collection, grab the first photo and make that the cover image -->
+        {% with photo=collection.uploadphoto_set.first %}
+            {% if photo %}
+            <!-- as long as the photo exists, output an image -->
+            <div onclick="location.href='{% url 'portraits' collection.id %}'" class="gallery-imgs">
                 <img src="{{ photo.url }}" alt="{{ photo.collection }}" width='600px'>
             </div>
-        </div>
-        {% else %}
-        <!-- if there no, photos. Tell user there are no photos -->
-        <div class="card-panel teal-text center-align">No Photos Uploaded</div>
-        {% endif %}
-    {% endwith %}
-{% endfor %}
+    
+            {% else %}
+            <!-- if there no, photos. Tell user there are no photos -->
+            <div class="card-panel teal-text center-align">No Photos Uploaded</div>
+            {% endif %}
+        {% endwith %}
+    {% endfor %}
+    </div>
+    
 
 {% endblock %}

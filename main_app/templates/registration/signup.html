@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<h1>Create an account!</h1>
+
+<p class="red-text">{{ error_message }}</p>
+<div class="card" style="padding: 25px">
+    <form method="POST" action="{% url 'signup' %}">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <input type="submit" class="btn" value="Sign Up">
+    </form>
+</div>
+
+{% endblock %}

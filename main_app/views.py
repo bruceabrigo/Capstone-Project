@@ -5,14 +5,40 @@ import os
 import uuid
 import boto3
 from django.conf import settings
-# for contact
+# ------------------------------ for contact ------------------------------
 from django.core.mail import send_mail, BadHeaderError
 from django.http import HttpResponse
+# ------------------------------ user forms ------------------------------
+from django.contrib.auth import login
+from django.contrib.auth.forms import UserCreationForm 
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.mixins import UserPassesTestMixin
+
+# ------------------------------ aws auth ------------------------------
+
 
 AWS_ACCESS_KEY = settings.AWS_ACCESS_KEY
 AWS_SECRET_ACCESS_KEY = settings.AWS_SECRET_ACCESS_KEY
 S3_BUCKET = settings.S3_BUCKET
 S3_BASE_URL = settings.S3_BASE_URL
+
+# ------------------------------ user auth ------------------------------
+def signup(request):
+    error_messsage = ''
+    if request.method == 'POST':
+        form = UserCreationForm(request.POST)
+        if form.is_valid():
+            user = form.save()
+            login(request, user)
+            return redirect('home')
+        else:
+            error_messsage = 'Error on signup, please try again...'
+    form = UserCreationForm()
+    context = {'form': form, 'error_message': error_messsage}
+    return render(request, 'registration/signup.html', context)
+            
+# ------------------------------ end user auth ------------------------------
 
 def photos(request):
     secret_key = os.environ['SECRET_KEY']
@@ -50,7 +76,11 @@ def collections(request):
     covers = AllCollections.objects.all()[1:2]
     return render(request, 'collections.html', {'collections': collections, 'covers': covers})
 
-class CreateCollection(CreateView):
+class SuperUserRequired(UserPassesTestMixin):
+    def test_func(self):
+        return self.request.user.is_superuser
+
+class CreateCollection(SuperUserRequired, CreateView):
     model = AllCollections
     fields = '__all__'
 
@@ -58,6 +88,7 @@ class CreateCollection(CreateView):
 
 # ----------------- End  -----------------
 
+# ----------------- Reviews -----------------
 
 def show_reviews(request): # show an index of all the reviews
     reviews = Review.objects.all() # reviews will make a query for all reviews to be rendered to the index
@@ -86,6 +117,7 @@ class DeleteReview(DeleteView):
     model = Review
     success_url = '/reviews'
 
+# ----------------- Collections page -----------------
 # create individual portrait reviews
 # each collection is to render all photos in that collections one-to-many relationship
 def portraits_collection(request, collection_id):

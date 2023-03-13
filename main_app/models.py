@@ -1,6 +1,7 @@
 from django.db import models
 from django.urls import reverse
 from django import forms
+from django.contrib.auth.models import User
 
 # Create your models here.
 class Review(models.Model):
@@ -24,6 +25,7 @@ class ContactForm(forms.Form):
     
 class AllCollections(models.Model):
     collection = models.CharField(max_length=100)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
     # give an image an url to be associated to
     # add a date to the collections
     # created_on = models.DateField('created on')
@@ -40,3 +42,4 @@ class UploadPhoto(models.Model):
 
     def __str__(self):
         return f'Saved to the {self.collection_id} @{self.url}'
+

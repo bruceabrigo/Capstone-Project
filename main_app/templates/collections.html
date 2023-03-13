@@ -8,7 +8,7 @@
         {% with photo=collection.uploadphoto_set.first %}
             {% if photo %}
             <!-- as long as the photo exists, output an image -->
-            <div onclick="location.href='{% url 'portraits' collection.id %}'" >
+            <div onclick="location.href='{% url 'view_collection' collection.id %}'" >
                 <div class="">
                     <h3 class="">{{collection.collection}}</h3>
                 </div>
@@ -32,7 +32,14 @@
             {% endif %}
         {% endwith %}
     {% endfor %}
-    
+    <div class="gallery">
+        <div class="card">
+            Create Collection
+            <div onclick="location.href='{% url 'create_collection' %}'" style="align-items: center;">
+                <img src="https://icons-for-free.com/iconfiles/png/512/append+circle+create+green+new+plus+icon-1320196710849480257.png" alt="" height="25pxpx">
+            </div>
+        </div>
+    </div>
     </div>
     
 

@@ -10,8 +10,8 @@ urlpatterns = [
     path('reviews/<int:pk>/delete/', views.DeleteReview.as_view(), name='delete_review'),
     # collections view paths
     path('collections', views.collections, name='collections'),
-    path('collections/<int:collection_id>/portraits/', views.portraits_collection, name='portraits'),
-    path('collections/<int:collection_id>/prom', views.prom_collection, name='prom'),
+    path('collections/create/', views.CreateCollection.as_view(), name='create_collection'),
+    path('collections/<int:collection_id>/', views.portraits_collection, name='view_collection'),
     path('collections/<int:collection_id>/upload', views.upload_photo, name='upload_photo'),
     # contact form
     path('contact', views.contact, name='contact'),

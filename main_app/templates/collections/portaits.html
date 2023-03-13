@@ -11,5 +11,17 @@
     <div class="card-panel teal-text center-align">No Photos Uploaded</div>
     {% endfor %}
     </div>
-
+    <div class="gallery">
+        <form 
+        class="card-panel"
+        action="{% url 'upload_photo' collection.id %}"
+        method="POST"
+        enctype="multipart/form-data" 
+        >
+        {% csrf_token %}
+        <input type="file" name="photo-file" />
+        <br/><br/>
+        <input type="submit" class="btn" value="Upload Photo"/>
+        </form>
+    </div>
 {% endblock %}

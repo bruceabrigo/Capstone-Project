@@ -44,12 +44,19 @@ def contact(request):
     form = ContactForm()
     return render(request, 'contact.html', {'form': form})
 
-# ----------------- Debugging -----------------
+# ----------------- Collections Home & Create -----------------
 def collections(request):
     collections = AllCollections.objects.all()
     covers = AllCollections.objects.all()[1:2]
     return render(request, 'collections.html', {'collections': collections, 'covers': covers})
-# ----------------- Debugging -----------------
+
+class CreateCollection(CreateView):
+    model = AllCollections
+    fields = '__all__'
+
+    success_url = '/collections'
+
+# ----------------- End  -----------------
 
 
 def show_reviews(request): # show an index of all the reviews
@@ -85,9 +92,6 @@ def portraits_collection(request, collection_id):
     collection = AllCollections.objects.get(id=collection_id)
     return render(request, 'collections/portaits.html', {'collection': collection})
 
-def prom_collection(request, collection_id):
-    collection = AllCollections.objects.get(id=collection_id)
-    return render(request, 'collections/portaits.html', {'collection': collection})
 
 # create a custom function to upload an image to AWS
 def upload_photo(request, collection_id):

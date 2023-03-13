@@ -62,10 +62,42 @@ footer.page-footer {
 .gallery {
     display: flex;
     max-width: 90%;
+    width: 100%;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin: 15px auto;
 }
 .gallery-imgs {
     margin: 5px;
+    width: 550px;
+    object-fit: cover;
+    object-position: bottom;
+    transition: all .4s ease;
 }
+.gallery-imgs:hover {
+    cursor: pointer;
+    opacity: 90%;
+    transition: all .4s ease;
+}
+.gallery > div h3 {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    margin: 0;
+    padding: 0;
+    color: white;
+    text-shadow: black 1px 0 10px;
+  }
+  
+  .gallery > div {
+    position: relative;
+    margin-bottom: 30px;
+    width: calc(33.33% - 10px);
+  }
+  
+
 /* -------------- Home -------------- */
 .parallax-container {
     height: 100vh;

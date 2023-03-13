@@ -2,12 +2,14 @@
 {% block content %}
 
     <!-- Insert photo markup below this comment -->
-    <h1>{{collection.collection}}</h1>
+    <div class="gallery">
     {% for photo in collection.uploadphoto_set.all %}
-    <div class="col s5">
-        <img src="{{ photo.url }}" alt="{{ photo.collection }}" width='600px'>
+    <div>
+        <img src="{{ photo.url }}" alt="{{ photo.collection }}" class="gallery-imgs">
     </div>
     {% empty %}
     <div class="card-panel teal-text center-align">No Photos Uploaded</div>
     {% endfor %}
+    </div>
+
 {% endblock %}

@@ -8,16 +8,31 @@
         {% with photo=collection.uploadphoto_set.first %}
             {% if photo %}
             <!-- as long as the photo exists, output an image -->
-            <div onclick="location.href='{% url 'portraits' collection.id %}'" class="gallery-imgs">
-                <img src="{{ photo.url }}" alt="{{ photo.collection }}" width='600px'>
+            <div onclick="location.href='{% url 'portraits' collection.id %}'" >
+                <div class="">
+                    <h3 class="">{{collection.collection}}</h3>
+                </div>
+                <img src="{{ photo.url }}" alt="{{ photo.collection }}" class="gallery-imgs">
             </div>
     
             {% else %}
             <!-- if there no, photos. Tell user there are no photos -->
             <div class="card-panel teal-text center-align">No Photos Uploaded</div>
+            <form 
+            class="card-panel"
+            action="{% url 'upload_photo' collection.id %}"
+            method="POST"
+            enctype="multipart/form-data" 
+            >
+            {% csrf_token %}
+            <input type="file" name="photo-file" />
+            <br/><br/>
+            <input type="submit" class="btn" value="Upload Photo"/>
+        </form>
             {% endif %}
         {% endwith %}
     {% endfor %}
+    
     </div>
     
 

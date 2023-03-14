@@ -15,7 +15,6 @@ import dj_database_url
 import environ
 import os
 
-DEBUG = 'RENDER' not in os.environ
 
 
 env = environ.Env(
@@ -38,12 +37,15 @@ AWS_SECRET_ACCESS_KEY = env('AWS_SECRET_ACCESS_KEY')
 S3_BUCKET = env('S3_BUCKET')
 S3_BASE_URL = env('S3_BASE_URL')
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+# DEBUG = True
+DEBUG = 'RENDER' not in os.environ
+
 
 ALLOWED_HOSTS = []
 
 RENDER_EXTERNAL_HOSTNAME = os.environ.get('RENDER_EXTERNAL_HOSTNAME')
-if RENDER_EXTERNAL_HOSTNAME:    ALLOWED_HOSTS.append(RENDER_EXTERNAL_HOSTNAME)
+if RENDER_EXTERNAL_HOSTNAME:    
+    ALLOWED_HOSTS.append(RENDER_EXTERNAL_HOSTNAME)
 
 # Application definition
 
@@ -95,9 +97,8 @@ WSGI_APPLICATION = 'babrigomedia.wsgi.application'
 
 DATABASES = {
     'default': dj_database_url.config(     
-    default='postgresql://postgres:postgres@localhost:5432/babrigomedia',        
-    conn_max_age=600    )
-    }
+    default='postgresql://postgres:postgres@localhost:5432/babrigomedia', conn_max_age=600
+    )}
 
 
 

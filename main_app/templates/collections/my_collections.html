@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <h1>Collections for {{ collections.0.user.username }}</h1>
+  <ul>
+  {% for collection in collections %}
+    <li>{{ collection.collection }}</li>
+    <div class="gallery">
+      {% for photo in collection.photos.all %}
+        <img src="{{ photo.image.url }}" alt="{{ photo.title }}">
+      {% empty %}
+        <div class="card-panel teal-text center-align">No Photos Uploaded</div>
+      {% endfor %}
+    </div>
+  {% empty %}
+    <li>No collections found.</li>
+  {% endfor %}
+  </ul>
+  
+    {% if user.is_superuser %}
+    <div class="gallery">
+        <form 
+        class="card-panel"
+        action="{% url 'upload_photo' collection.id %}"
+        method="POST"
+        enctype="multipart/form-data" 
+        >
+        {% csrf_token %}
+        <input type="file" name="photo-file" />
+        <br/><br/>
+        <input type="submit" class="btn" value="Upload Photo"/>
+        </form>
+    </div>
+    {% endif %}
+{% endblock %}

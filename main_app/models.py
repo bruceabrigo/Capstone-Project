@@ -26,6 +26,7 @@ class ContactForm(forms.Form):
 class AllCollections(models.Model):
     collection = models.CharField(max_length=100)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
+
     # give an image an url to be associated to
     # add a date to the collections
     # created_on = models.DateField('created on')
@@ -34,6 +35,7 @@ class AllCollections(models.Model):
     # order by date
     # class Meta:
     #     ordering = ['-created_on']
+
     
 class UploadPhoto(models.Model):
     url = models.CharField(max_length=200)

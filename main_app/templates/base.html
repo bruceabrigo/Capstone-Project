@@ -22,10 +22,10 @@
                 </ul>
                 <ul class="right">
                     <li><a href="/reviews">Reviews</a></li>
-                    <li><a href="/collections">View Collections</a></li>
+                    <li><a href="{% url 'collections' %}">View Collections</a></li>
                     <li><a href="/contact">Contact</a></li>
                     {% if user.is_authenticated %}
-                    <li><a href="">My Collections</a></li>
+                    <li><a href="{% url 'my_collections' user_id=request.user.id %}">My Collections</a></li>
                     <li><a href="{% url 'logout' %}">Log Out</a></li>
                     {% else %}
                     <li><a href="{% url 'login' %}">Log In</a></li>
@@ -45,9 +45,18 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            var elems = document.querySelectorAll('.parallax');
-            var instances = M.Parallax.init(elems, {});
+            let elems = document.querySelectorAll('.parallax');
+            let instances = M.Parallax.init(elems, {});
         });
+        document.addEventListener('DOMContentLoaded', function() {
+            let elems = document.querySelectorAll('select');
+            let instances = M.FormSelect.init(elems);
+        });
+        document.addEventListener('DOMContentLoaded', function() {
+            var modals = document.querySelectorAll('.modal');
+            M.Modal.init(modals);
+        });
+
     </script>
 </body>
 </html>

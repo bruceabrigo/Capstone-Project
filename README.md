@@ -2,7 +2,7 @@
 - Full stack photography portfolio and booking website
 
 # Technologies
-Django, Python, HTML, CSS, JS
+Django, Python, AWS S3, HTML, CSS, Materialize, JavaScript
 
 # User Story
 - User should be able to see an index page that contains a collection of photos

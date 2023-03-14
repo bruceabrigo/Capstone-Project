@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+{% block content %}
+
+    <!-- Insert photo markup below this comment -->
+    <div class="gallery">
+        {% for photo in collection.uploadphoto_set.all %}
+          <div>
+              <img src="{{ photo.url }}" alt="{{ photo.collection }}" class="gallery-imgs">
+              <p>{{photo.id}}</p>
+          </div>
+          <!-- Modal Structure -->
+          <div id="modal-{{ photo.id }}" class="modal modal-fixed-footer">
+            <div class="modal-content">
+              <h4>Modal Header</h4>
+              <p>A bunch of text</p>
+            </div>
+            <div class="modal-footer">
+              <a href="#!" class="modal-close waves-effect waves-green btn-flat">Agree</a>
+            </div>
+          </div>
+        {% empty %}
+          <div class="card-panel teal-text center-align">No Photos Uploaded</div>
+        {% endfor %}
+      </div>
+      
+    {% if user.is_superuser %}
+    <div class="gallery">
+        <form 
+        class="card-panel"
+        action="{% url 'upload_photo' collection.id %}"
+        method="POST"
+        enctype="multipart/form-data" 
+        >
+        {% csrf_token %}
+        <input type="file" name="photo-file" />
+        <br/><br/>
+        <input type="submit" class="btn" value="Upload Photo"/>
+        </form>
+    </div>
+    {% endif %}
+{% endblock %}

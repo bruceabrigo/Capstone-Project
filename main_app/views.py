@@ -14,6 +14,9 @@ from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.mixins import UserPassesTestMixin
+from django import forms
+from django.contrib.auth.models import User
+
 
 # ------------------------------ aws auth ------------------------------
 
@@ -46,7 +49,10 @@ def photos(request):
 
 # Create your views here.
 def home(request): # home page view
+    # user_id = request.user.id  # or however you want to get the user_id
+    # context = {'user_id': user_id}
     return render(request, 'home.html')
+
 
 def contact(request):
     if request.method == 'POST':
@@ -73,8 +79,14 @@ def contact(request):
 # ----------------- Collections Home & Create -----------------
 def collections(request):
     collections = AllCollections.objects.all()
-    covers = AllCollections.objects.all()[1:2]
-    return render(request, 'collections.html', {'collections': collections, 'covers': covers})
+    return render(request, 'collections.html', {'collections': collections})
+
+class CollectionForm(forms.ModelForm):
+    user = forms.ModelChoiceField(queryset=User.objects.all())
+
+    class Meta:
+        model = AllCollections
+        fields = ['collection', 'user']
 
 class SuperUserRequired(UserPassesTestMixin):
     def test_func(self):
@@ -82,9 +94,13 @@ class SuperUserRequired(UserPassesTestMixin):
 
 class CreateCollection(SuperUserRequired, CreateView):
     model = AllCollections
-    fields = '__all__'
-
+    form_class = CollectionForm
     success_url = '/collections'
+
+    def form_valid(self, form):
+        form.instance.user = self.request.user
+        return super().form_valid(form)
+    
 
 # ----------------- End  -----------------
 
@@ -120,12 +136,16 @@ class DeleteReview(DeleteView):
 # ----------------- Collections page -----------------
 # create individual portrait reviews
 # each collection is to render all photos in that collections one-to-many relationship
-def portraits_collection(request, collection_id):
+def view_collection(request, collection_id):
     collection = AllCollections.objects.get(id=collection_id)
-    return render(request, 'collections/portaits.html', {'collection': collection})
+    return render(request, 'collections/view_collection.html', {'collection': collection})
 
+def my_collections(request, user_id):
+    collections = AllCollections.objects.filter(user_id=user_id)
+    return render(request, 'collections/my_collections.html', {'collections': collections, 'user_id': user_id})
 
 # create a custom function to upload an image to AWS
+@login_required
 def upload_photo(request, collection_id):
     photo_file = request.FILES.get('photo-file', None)
 

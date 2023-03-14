@@ -94,9 +94,15 @@ WSGI_APPLICATION = 'babrigomedia.wsgi.application'
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
 
 DATABASES = {
-    'default': dj_database_url.config(     
-    default='postgresql://postgres:postgres@localhost:5432/babrigomedia', conn_max_age=600
-    )}
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'babrigomedia',
+    }}
+
+# DATABASES = {
+#     'default': dj_database_url.config(
+#     default='postgresql://postgres:postgres@localhost:5432/babrigomedia', conn_max_age=600
+#     )}
 
 
 

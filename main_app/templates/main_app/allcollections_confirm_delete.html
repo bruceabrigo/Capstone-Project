@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <h1>Delete Review</h1>
+
+    <div class="card">
+        <div class="card-content">
+            <h4>Are you sure you want to delete this collection?</h4>
+            <p>You are on the delete page for this</p>
+            <p class="delete-message">{{object.collection}}</p>
+            <form action="" method="POST">
+                {% csrf_token %}
+                <input type="submit" value="Yes - Delete!" class="btn">
+                <a href="{% url 'collections' %}">Cancel</a>
+            </form>
+        </div>
+    </div>
+{% endblock %}

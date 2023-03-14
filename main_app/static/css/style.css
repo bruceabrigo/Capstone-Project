@@ -129,3 +129,6 @@ footer.page-footer {
     overflow: hidden;
     max-width: 1000px;
 }
+.review-btn {
+    color: #ff6f00;
+}

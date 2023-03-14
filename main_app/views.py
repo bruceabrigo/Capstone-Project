@@ -100,7 +100,10 @@ class CreateCollection(SuperUserRequired, CreateView):
     def form_valid(self, form):
         form.instance.user = self.request.user
         return super().form_valid(form)
-    
+
+class DeleteCollection(SuperUserRequired, DeleteView):
+    model = AllCollections
+    success_url = '/collections'
 
 # ----------------- End  -----------------
 

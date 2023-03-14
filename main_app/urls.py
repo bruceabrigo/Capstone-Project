@@ -11,6 +11,7 @@ urlpatterns = [
     # ----------------------------- collections view paths -----------------------------
     path('collections', views.collections, name='collections'),
     path('collections/create/', views.CreateCollection.as_view(), name='create_collection'),
+    path('collections/<int:pk>/delete/', views.DeleteCollection.as_view(), name='delete_collection'),
     path('collections/<int:collection_id>/', views.view_collection, name='view_collection'),
     path('collections/mine/<int:user_id>/', views.my_collections, name='my_collections'),
     path('collections/<int:collection_id>/upload', views.upload_photo, name='upload_photo'),

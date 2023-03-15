@@ -31,6 +31,8 @@
         </form>
             {% endif %}
         {% endwith %}
+    {% empty %}
+    <h1>We currently don't have an album setup for you yet.</h1>
     {% endfor %}
     {% if user.is_superuser %}
     <div class="gallery">

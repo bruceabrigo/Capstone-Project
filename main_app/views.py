@@ -54,6 +54,9 @@ def home(request): # home page view
     return render(request, 'home.html')
 
 
+from django.conf import settings
+from django.core.mail import send_mail, BadHeaderError
+
 def contact(request):
     if request.method == 'POST':
         form = ContactForm(request.POST)
@@ -62,24 +65,52 @@ def contact(request):
             body = {
             'first_name': form.cleaned_data['first_name'], 
             'last_name': form.cleaned_data['last_name'], 
-            'email': form.cleaned_data['email_address'], 
+            'email': form.cleaned_data['email'],  
             'message':form.cleaned_data['message'], 
             }
             message = "\n".join(body.values())
 
             try:
-                send_mail(subject, message, 'admin@example.com', ['admin@example.com']) 
+                send_mail(subject, message, settings.EMAIL_HOST_USER, ['bruceabrigo@outlook.com']) 
             except BadHeaderError:
                 return HttpResponse('Invalid header found.')
-            return redirect ('home')
+            return redirect('home')
       
     form = ContactForm()
     return render(request, 'contact.html', {'form': form})
 
+
+
+# ----------------- Reviews -----------------
+
+def show_reviews(request): # show an index of all the reviews
+    reviews = Review.objects.all() # reviews will make a query for all reviews to be rendered to the index
+    return render(request, 'reviews/index.html', {
+        'reviews': reviews
+    })
+
+def view_review(request, review_id): # this will show a details page of ONE review
+    review = Review.objects.get(id=review_id) # review, is equal to the id of one review, based on the reviews id, in which was included reviews query, and looped into separate reviews with their id's
+    return render(request, 'reviews/view_review.html', {
+        'review': review
+    })
+
+class PostReview(CreateView):
+    model = Review
+    fields = ['name', 'note']
+
+    success_url = '/reviews'
+
+class UpdateReview(UpdateView):
+    # I only want users to be able change the note
+    model = Review
+    fields = ['note']
+
+class DeleteReview(DeleteView):
+    model = Review
+    success_url = '/reviews'
+    
 # ----------------- Collections Home & Create -----------------
-def collections(request):
-    collections = AllCollections.objects.all()
-    return render(request, 'collections.html', {'collections': collections})
 
 class CollectionForm(forms.ModelForm):
     user = forms.ModelChoiceField(queryset=User.objects.all())
@@ -107,38 +138,13 @@ class DeleteCollection(SuperUserRequired, DeleteView):
 
 # ----------------- End  -----------------
 
-# ----------------- Reviews -----------------
-
-def show_reviews(request): # show an index of all the reviews
-    reviews = Review.objects.all() # reviews will make a query for all reviews to be rendered to the index
-    return render(request, 'reviews/index.html', {
-        'reviews': reviews
-    })
-
-def view_review(request, review_id): # this will show a details page of ONE review
-    review = Review.objects.get(id=review_id) # review, is equal to the id of one review, based on the reviews id, in which was included reviews query, and looped into separate reviews with their id's
-    return render(request, 'reviews/view_review.html', {
-        'review': review
-    })
-
-class PostReview(CreateView):
-    model = Review
-    fields = '__all__'
-
-    success_url = '/reviews'
-
-class UpdateReview(UpdateView):
-    # I only want users to be able change the note
-    model = Review
-    fields = ['note']
-
-class DeleteReview(DeleteView):
-    model = Review
-    success_url = '/reviews'
-
 # ----------------- Collections page -----------------
 # create individual portrait reviews
 # each collection is to render all photos in that collections one-to-many relationship
+def collections(request):
+    collections = AllCollections.objects.all()
+    return render(request, 'collections.html', {'collections': collections})
+
 def view_collection(request, collection_id):
     collection = AllCollections.objects.get(id=collection_id)
     return render(request, 'collections/view_collection.html', {'collection': collection})

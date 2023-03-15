@@ -4,7 +4,7 @@
 <!-- loop through all the collections -->
 <div class="gallery">
     {% for collection in collections %}
-        <!-- from each collection, grab the first photo and make that the cover image -->
+        <!-- from each collection, assign photo value to the first photo in the photo_set -->
         {% with photo=collection.uploadphoto_set.first %}
             {% if photo %}
             <!-- as long as the photo exists, output an image -->

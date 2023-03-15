@@ -6,7 +6,6 @@
         {% for photo in collection.uploadphoto_set.all %}
           <div>
               <img src="{{ photo.url }}" alt="{{ photo.collection }}" class="gallery-imgs">
-              <p>{{photo.id}}</p>
           </div>
           <!-- Modal Structure -->
           <div id="modal-{{ photo.id }}" class="modal modal-fixed-footer">

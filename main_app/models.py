@@ -7,7 +7,7 @@ from django.contrib.auth.models import User
 class Review(models.Model):
     name = models.CharField(max_length=100)
     note = models.CharField(max_length=300)
-    created_on = models.DateField('created on')
+    created_on = models.DateField('created on', auto_now_add=True)
 
     # add a meta class to sort each review by which date it was created on
     # potentially re-order by its rating

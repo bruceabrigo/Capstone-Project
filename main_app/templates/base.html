@@ -14,38 +14,38 @@
 
 </head>
 <body>
-    <header>
-        <nav class="N/A transparent">
-          <div class="nav-wrapper">
-            <a href="/" class="left brand-logo">&nbsp;&nbsp;BAbrigo Media</a>
-            <a href="#" data-target="nav-mobile" class="sidenav-trigger right"><i class="material-icons">menu</i></a>
-            <ul id="nav-mobile" class="right hide-on-med-and-down">
-              <li><a href="{%url 'reviews' %}">Reviews</a></li>
-              <li><a href="{% url 'collections' %}">View Collections</a></li>
-              <li><a href="/contact">Contact</a></li>
-              {% if user.is_authenticated %}
-              <li><a href="{% url 'my_collections' user_id=request.user.id %}">My Collections</a></li>
-              <li><a href="{% url 'logout' %}">Log Out</a></li>
-              {% else %}
-              <li><a href="{% url 'login' %}">Log In</a></li>
-              <li><a href="{% url 'signup' %}">Create Account</a></li>
-              {% endif %}
-            </ul>
-            <ul class="sidenav" id="nav-mobile">
-              <li><a href="{%url 'reviews' %}">Reviews</a></li>
-              <li><a href="{% url 'collections' %}">View Collections</a></li>
-              <li><a href="/contact">Contact</a></li>
-              {% if user.is_authenticated %}
-              <li><a href="{% url 'my_collections' user_id=request.user.id %}">My Collections</a></li>
-              <li><a href="{% url 'logout' %}">Log Out</a></li>
-              {% else %}
-              <li><a href="{% url 'login' %}">Log In</a></li>
-              <li><a href="{% url 'signup' %}">Create Account</a></li>
-              {% endif %}
-            </ul>
-          </div>
-        </nav>
-      </header>
+  <header>
+    <nav class="transparent">
+      <div class="nav-wrapper">
+        <a href="/" class="left brand-logo">&nbsp;&nbsp;BAbrigo Media</a>
+        <a href="#" data-target="nav-mobile" class="sidenav-trigger right"><i class="material-icons">menu</i></a>
+        <ul id="nav-mobile" class="sidenav">
+          <li><a href="{% url 'reviews' %}">Reviews</a></li>
+          <li><a href="{% url 'collections' %}">View Collections</a></li>
+          <li><a href="/contact">Contact</a></li>
+          {% if user.is_authenticated %}
+          <li><a href="{% url 'my_collections' user_id=request.user.id %}">My Collections</a></li>
+          <li><a href="{% url 'logout' %}">Log Out</a></li>
+          {% else %}
+          <li><a href="{% url 'login' %}">Log In</a></li>
+          <li><a href="{% url 'signup' %}">Create Account</a></li>
+          {% endif %}
+        </ul>
+        <ul id="nav-mobile-desktop" class="right hide-on-med-and-down">
+          <li><a href="{% url 'reviews' %}">Reviews</a></li>
+          <li><a href="{% url 'collections' %}">View Collections</a></li>
+          <li><a href="/contact">Contact</a></li>
+          {% if user.is_authenticated %}
+          <li><a href="{% url 'my_collections' user_id=request.user.id %}">My Collections</a></li>
+          <li><a href="{% url 'logout' %}">Log Out</a></li>
+          {% else %}
+          <li><a href="{% url 'login' %}">Log In</a></li>
+          <li><a href="{% url 'signup' %}">Create Account</a></li>
+          {% endif %}
+        </ul>
+      </div>
+    </nav>
+  </header>
     <main class="container">
         {% block content %}
         {% endblock %}
@@ -63,10 +63,21 @@
             let elems = document.querySelectorAll('select');
             let instances = M.FormSelect.init(elems);
         });
+        // sidenav
         document.addEventListener('DOMContentLoaded', function() {
-            var elems = document.querySelectorAll('.sidenav');
-            var instances = M.Sidenav.init(elems);
-        });
+            let elems = document.querySelectorAll('.sidenav');
+            let instances = M.Sidenav.init(elems, {});
+
+            let mainNav = document.getElementById('main-nav');
+            let sidenavLinks = document.querySelectorAll('.sidenav a');
+
+            sidenavLinks.forEach(function(link) {
+              link.addEventListener('click', function() {
+                let sidenav = M.Sidenav.getInstance(elems[0]);
+                sidenav.close();
+              });
+            });
+          });
         document.addEventListener('DOMContentLoaded', function() {
             var modals = document.querySelectorAll('.modal');
             M.Modal.init(modals);

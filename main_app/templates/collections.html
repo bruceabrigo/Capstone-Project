@@ -32,17 +32,17 @@
             {% endif %}
         {% endwith %}
     {% endfor %}
-    {% if user.is_superuser %}
-    <div class="gallery">
-        <div class="card">
-            Create Collection
-            <div onclick="location.href='{% url 'create_collection' %}'" style="align-items: center;">
-                <img src="https://icons-for-free.com/iconfiles/png/512/append+circle+create+green+new+plus+icon-1320196710849480257.png" alt="" height="25pxpx">
-            </div>
+</div>
+{% if user.is_superuser %}
+<div class="gallery">
+    <div class="card" style="text-align: center; cursor: pointer; width: 500px;">
+        Create Collection
+        <div onclick="location.href='{% url 'create_collection' %}'" style="align-items: center;">
+            <img src="https://icons-for-free.com/iconfiles/png/512/append+circle+create+green+new+plus+icon-1320196710849480257.png" alt="" height="25pxpx">
         </div>
     </div>
-    {% endif %}
-    </div>
-    
+</div>
+{% endif %}
+
 
 {% endblock %}

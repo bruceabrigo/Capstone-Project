@@ -99,15 +99,15 @@ WSGI_APPLICATION = 'babrigomedia.wsgi.application'
 #         'NAME': 'babrigomedia',
 #     }}
 
-DATABASES = {
-    'default': dj_database_url.config(
-    default='postgresql://postgres:postgres@localhost:5432/babrigomedia', conn_max_age=600
-    )}
-
 # DATABASES = {
 #     'default': dj_database_url.config(
-#         default=os.getenv('DATABASE_URL'), conn_max_age=600
+#     default='postgresql://postgres:postgres@localhost:5432/babrigomedia', conn_max_age=600
 #     )}
+
+DATABASES = {
+    'default': dj_database_url.config(
+        default=os.getenv('DATABASE_URL'), conn_max_age=600
+    )}
 
 
 
